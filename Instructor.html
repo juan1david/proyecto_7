@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor</title>
+</head>
+<body>
+    
+<script>
+const instructor1 = {
+      nombre: 'jorge',
+      linea: 'software',
+      jornada: 'tarde',
+
+
+informacioninstructor: function () {
+      console.log(`nombre del instructor: ${this.nombre},         
+linea de instructor: ${this.linea}, 
+jornada del instructor: ${this.jornada}`);
+ },
+
+ programaFormacion: function () {
+  if (this.linea === 'Software') {
+      return 'Programa: Análisis y desarrollo de software';
+    } 
+   else if (this.linea === 'Hardware') {
+      return 'Programa: Administración de redes';
+    } 
+   else if (this.linea === 'ninguna') {
+      return 'No se tiene registro calificado para esta línea tecnológica';
+    }
+  }
+
+}
+
+instructor1.informacioninstructor();
+instructor1.programaFormacion();
+
+function Instructor(nombre, linea, jornada) {
+  this.nombre = nombre;
+  this.linea = linea;
+  this.jornada = jornada;
+}
+
+Instructor.prototype.informacioninstructor = function () {
+      console.log(`nombre del instructor: ${this.nombre}, linea de instructor: ${this.linea} ` +
+                  `y jornada del instructor: ${this.jornada}`);
+ },
+
+Instructor.prototype.programaFormacion = function () {
+  if (this.linea === 'Software') {
+      return 'Programa: Análisis y desarrollo de software';
+    } 
+   else if (this.linea === 'Hardware') {
+      return 'Programa: Administración de redes';
+    } 
+   else if (this.linea === 'ninguna') {
+      return 'No se tiene registro calificado para esta línea tecnológica';
+    }
+  },
+
+Instructor.prototype.tiempoVinculacion = function () {
+  const fechaActual = new Date();
+    const fechaVinculacion = new Date(this.fechaVinculacion);
+    const tiempoTranscurrido = fechaActual - fechaVinculacion;
+    const mesesTranscurridos = Math.floor(tiempoTranscurrido / (1000 * 60 * 60 * 24 * 30.44)); 
+    return `Antigüedad en meses: ${mesesTranscurridos}`;
+  }
+
+function InstructorPlanta(nombre, linea, jornada, fechaVinculacion){
+      this.super = Instructor;
+      this.super (nombre, linea, jornada, fechaVinculacion);
+      this.fechaVinculacion = fechaVinculacion;
+}
+
+InstructorPlanta.prototype = new Instructor();
+InstructorPlanta.prototype.constructor = Instructor;
+
+InstructorPlanta.prototype.informacioninstructor = function () {
+      console.log(`nombre del instructor: ${this.nombre}, linea de instructor: ${this.linea},
+jornada del instructor: ${this.jornada}`);
+ },
+
+InstructorPlanta.prototype.tiempoVinculacion = function () {
+    const fechaActual = new Date();
+    const fechaVinculacion = new Date(this.fechaVinculacion);
+    const tiempoTranscurrido = fechaActual - fechaVinculacion;
+    const mesesTranscurridos = Math.floor(tiempoTranscurrido / (1000 * 60 * 60 * 24 * 30.44)); 
+    return `Antigüedad en meses: ${mesesTranscurridos}`;
+  }
+
+ let instructor = new InstructorPlanta('Andres henao', 'software', 'mañana');
+
+ console.log({instructor});
+
+instructor.informacioninstructor();
+instructor.informacioninstructor();
+instructor.tiempoVinculacion();
+
+</script>
+
+</body>
+</html>

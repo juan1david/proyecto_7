@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Ejemplo</title>
+
+</head>
+<body>
+    
+    <script>
+        //digitar todo el codigo javascript aqui
+        const aprendiz1 = {
+            nombre: 'johana',
+            documento: '1223423423',
+            edad: 12,
+        
+        saludar: function () {
+            console.log(`hola, me llamo ${this.nombre} ` +
+            `y tengo ${this.edad} años`);
+        },
+
+        despedida : function (){
+            console.log(`Feliz aprendizaje! les desea ${this.nombre}`);
+        }
+    }
+
+    console.log(`tarea 1`);
+    //despliega la configuracion del objeto aprendiz
+    console.log({aprendiz1});
+    
+    console.log(`tarea 2`);
+    //notacion punto
+    //ejecutar los metodos del objeto
+    aprendiz1.saludar();
+    aprendiz1.despedida();
+
+    console.log(`tarea 3`);
+    //cambiar datos de atributos del objeto
+    aprendiz1.nombre = 'johana bernal';
+    aprendiz1.saludar(); 
+
+    console.log(`tarea 4`);
+    //adicionar atributos al objeto
+    aprendiz1['apellidos'] = 'cordoba';
+    aprendiz1['nombre'] = 'german antonio';
+    aprendiz1.saludar();
+
+    console.log(`tarea 5`);
+    //cambiar metodo del objeto
+    aprendiz1['edad'] = 24;
+    aprendiz1.saludar = function(){
+        console.log(`hola me llamo ${this.nombre} ${this.apellidos} ` + 
+            `y tengo ${this.edad} años`);
+    }
+    aprendiz1.saludar();
+
+    console.log(`tarea 6`);
+    //adicionar atributos y metodos al objeto mediante variables
+    const ficha = 'ficha';
+    const numficha = '2798618';
+    const progficha = 'ADSO';
+    aprendiz1[ficha] = numficha;
+    aprendiz1['programa'] = progficha
+    aprendiz1.estudiar = function(){
+        console.log(`estoy matriculado en la ficha ${this.ficha} ` + 
+            `y cursando 1er trimestre del programa ${this.programa}!`);
+
+    }
+    aprendiz1.estudiar();
+
+    function Aprendiz(documento, nombres, apellidos, edad, ficha, programa ){
+        this.documento = documento;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.edad = edad;
+        this.ficha = ficha;
+        this.programa = programa;
+    }    
+
+//objeto...
+Aprendiz.prototype.saludar = function(){
+    console.log(`Hola me llamo ${this.nombres} ` + 
+                ` y tengo ${this.edad} años`);
+}
+
+Aprendiz.prototype.despedida = function(){
+    console.log(`feliz aprendizaje les desea ${this.nombres} ` +
+               ` ${this.apellidos}`);
+}
+
+Aprendiz.prototype.estudiar = function(){
+        console.log(`matriculado en la ficha ${this.ficha} ` +
+            `y cursando 1er trimestre del programa ${this.programa}!`);
+}
+    
+//herencia prototipica
+function AprendizEtapaPractica(documento, nombres, apellidos, edad, ficha, 
+                                programa, empresa, funcion){
+        this.super = Aprendiz;
+        this.super(documento, nombres, apellidos, edad, ficha, programa);
+        this.empresa = empresa;
+        this.funcion = funcion;
+}
+
+        //AprendizEtapaPractica hereda de aprendiz
+        AprendizEtapaPractica.prototype = new Aprendiz();
+        AprendizEtapaPractica.prototype.constructor = Aprendiz;
+        
+//sobreescritura de metodo heredado
+AprendizEtapaPractica.prototype.estudiar = function(){
+            console.log(`termine etapa lectiva y me encuentro en etapa productiva`);
+}
+
+//adicion de nuevo metodo
+AprendizEtapaPractica.prototype.trabajar = function(){
+        console.log(`estoy trabajando en la empresa ${this.empresa} ` +
+        `cumpliendo funciones de ${this.funcion}`);
+}
+
+        let aprendiz2 = new AprendizEtapaPractica('1234567', 'sandra patricia', 'sandoval', 24,
+        '2798618', 'ADSO', 'IED pompilio martinez', 'Instructora');
+
+console.log({aprendiz2});
+
+aprendiz2.estudiar();
+aprendiz2.trabajar();
+
+</script>
+
+</body>
+</html>

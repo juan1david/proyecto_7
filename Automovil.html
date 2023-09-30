@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automovil</title>
+</head>
+<body>
+    
+<script>
+const automóvil1 = {
+marca: 'toyota',
+linea: 'sedan',
+modelo: 2020,
+cilindraje: 2000,
+precio: 15999000,
+
+informacionvehiculo: function () {
+      console.log(`marca: ${this.marca}, linea: ${this.linea}, modelo: ${this.modelo}, ` +
+          `cilindraje: ${this.cilindraje} precio: ${this.precio} `);
+ },
+
+revisionTecnicoMecanica: function(anioActual) {
+    if (anioActual - this.modelo > 5) {
+    return `Es necesario realizar la revisión técnica mecánica para el automóvil ${this.modelo}`;
+  } else {
+    return `El automóvil ${this.modelo} no requiere revisión técnica mecánica en este momento.`;
+  }
+ },
+
+ nivelGasolina: function() {
+  return Math.floor(Math.random() * 100) + 1;
+ }
+
+}
+
+automóvil1.informacionvehiculo();
+automóvil1.revisionTecnicoMecanica();
+automóvil1.nivelGasolina();
+
+function Automovil(marca, linea, modelo, cilindraje, precio, numeroPasajeros, tipoCaja) {
+  this.marca = marca;
+  this.linea = linea;
+  this.modelo = modelo;
+  this.cilindraje = cilindraje;
+  this.precio = precio;  
+  this.numeroPasajeros = numeroPasajeros;
+  this.tipoCaja = tipoCaja;
+}
+
+Automovil.prototype.numeroCinturonesSeguridad = function() {
+    return (this.numeroPasajeros * 2);
+}
+
+Automovil.prototype.informacionVehiculo = function() {
+    return ` Número de Pasajeros: ${this.numeroPasajeros}, Tipo de Caja: ${this.tipoCaja}`;
+}
+
+Automovil.prototype.nivelGasolina = function() {
+  return Math.floor(Math.random() * 100) + 1;
+ }
+
+function AutomovilSedan(marca, linea, modelo, cilindraje, precio, numeroPasajeros, tipoCaja){
+      this.super = Automovil;
+      this.super (marca, linea, modelo, cilindraje, precio, numeroPasajeros, tipoCaja);
+      this.numeroPasajeros = numeroPasajeros;
+      this.tipoCaja = tipoCaja;
+}
+
+AutomovilSedan.prototype = new Automovil();
+AutomovilSedan.prototype.constructor = Automovil;
+
+AutomovilSedan.prototype.numeroCinturonesSeguridad = function() {
+    return this.numeroPasajeros * 2;
+}
+
+AutomovilSedan.prototype.informacionvehiculo = function () {
+      console.log(`marca: ${this.marca}, linea: ${this.linea}, modelo: ${this.modelo}, ` +
+          ` cilindraje: ${this.cilindraje} precio: ${this.precio} ` +
+          ` numeropasajeros: ${this.numeroPasajeros} tipocaja: ${this.tipoCaja}`);
+ }
+
+AutomovilSedan.prototype.revisionTecnicoMecanica = function(anioActual) {
+     if (anioActual - this.modelo > 5) {
+    console.log(`Es necesario realizar la revisión técnica mecánica para el automóvil ${this.modelo}`);
+  } else {
+    console.log(`El automóvil ${this.modelo} no requiere revisión técnica mecánica en este momento.`);
+  }
+}
+
+AutomovilSedan.prototype.nivelGasolina = function() {
+  console.log(Math.floor(Math.random() * 100) + 1);
+ }
+
+
+ let Sedan = new AutomovilSedan('sedan2019', 'clase A', 'mercedez benz', 
+                            5500, 399000000, 5, 'automatica');
+
+ console.log({Sedan});
+
+ Sedan.numeroCinturonesSeguridad();
+ Sedan.informacionVehiculo();
+ Sedan.revisionTecnicoMecanica();
+ Sedan.nivelGasolina();
+
+</script>
+
+</body>
+</html>

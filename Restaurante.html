@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+const restaurante1 = {
+      plato: 'carne',
+      cantidad: '350 gr',
+      precio: 50000,
+      domicilio: 3000,
+
+    pedidoRestaurante: function () {
+    const productos = [];
+
+    function valorPedido() {
+        let total = 0;
+        for (const producto of productos) {
+            total += producto.precio;
+        }
+        return total;
+        console.log("Valor del pedido:", pedido.valorPedido());
+     }
+    
+     function descuentoPedido() {
+        if (productos.length > 2 && valorPedido() >= 50000) {
+            return valorPedido() * 0.1; 
+        } else {
+            return 0; 
+        }
+        console.log("Descuento aplicado:", pedido.descuentoPedido());
+    }
+
+    return {
+        agregarProducto: function (plato, precio) {
+            productos.push({ plato, precio });
+        },
+        valorPedido,
+        descuentoPedido,
+    }
+  }
+};
+
+restaurante1.pedidoRestaurante();
+
+function Restaurante(plato, cantidad, precio, domicilio) {
+    this.productos = ['carne', '350 gr', 50000, 3000];
+  this.plato = plato;
+  this.cantidad = cantidad;
+  this.precio = precio;
+  this.domicilio = domicilio
+ }
+
+Restaurante.prototype.valorPedido = function() {
+    let total = 0;
+    for (const producto of this.productos) {
+        total += producto.precio;
+    }
+    console.log("Valor del pedido:", total); 
+    return total;
+}
+
+Restaurante.prototype.descuentoPedido = function() {
+    let total = 0;
+
+    for (const producto of this.productos) {
+        total += producto.precio;
+    }
+
+    if (this.productos.length > 2 && total >= 50000) {
+        return total * 0.1;
+    } else {
+        return 0;
+    }
+}
+
+Restaurante.prototype.agregarProducto = function (plato, precio) {
+        this.productos.push({ plato, precio });
+    }
+    valorPedido = this.valorPedido; 
+    descuentoPedido = this.descuentoPedido; 
+
+
+function RestauranteDomicilio(plato, cantidad, precio, tiempoEntrega, valorDomicilio){
+      this.super = Restaurante;
+      this.super (plato, cantidad, precio, tiempoEntrega, valorDomicilio);
+      this.tiempoEntrega = tiempoEntrega;
+      this.valorDomicilio = valorDomicilio;
+}
+
+RestauranteDomicilio.prototype = new Restaurante();
+RestauranteDomicilio.prototype.constructor = Restaurante;
+
+RestauranteDomicilio.prototype.informacionRestaurante = function () {
+        console.log("Información del restaurante:");
+        console.log("Plato del día:", this.plato);
+        console.log("Cantidad:", this.cantidad);
+        console.log("Precio del plato:", this.precio);
+        console.log("Costo del domicilio:", this.domicilio);
+    }
+
+RestauranteDomicilio.prototype.valorPedido = function(plato, cantidad, precio, domicilio) {
+    this.plato = plato;
+    this.cantidad = cantidad;
+    this.precio = precio;
+    this.domicilio = domicilio;
+    }
+
+RestauranteDomicilio.prototype.TiempoEntrega = function(){
+    console.log(`El tiempo de entrega aproximado es de: ${this.tiempoEntrega}`)
+}
+
+RestauranteDomicilio.prototype.ValorDomicilio = function(){
+    console.log(`El valor del domicilio es de: ${this.valorDomicilio}`)
+}
+
+ let restaurante = new RestauranteDomicilio('sancocho', '250 gr', 25000, '30 minutos', 3000);
+
+ console.log({restaurante});
+
+restaurante.descuentoPedido();
+restaurante.agregarProducto();
+restaurante.informacionRestaurante();
+restaurante.valorPedido();
+restaurante.TiempoEntrega();
+restaurante.ValorDomicilio();
+
+</script>
+
+</body>
+</html>
