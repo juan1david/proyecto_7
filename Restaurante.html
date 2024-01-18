@@ -8,63 +8,78 @@
 <body>
     
 <script>
+// Definición de un objeto restaurante1 que representa un restaurante y su pedido.
 const restaurante1 = {
-      plato: 'carne',
-      cantidad: '350 gr',
-      precio: 50000,
-      domicilio: 3000,
+    // Atributos del restaurante, como el tipo de plato, cantidad, precio base y costo de domicilio.
+    plato: 'carne',
+    cantidad: '350 gr',
+    precio: 50000,
+    domicilio: 3000,
 
+    // Método pedidoRestaurante que devuelve un objeto con funciones relacionadas con el pedido.
     pedidoRestaurante: function () {
-    const productos = [];
+        // Array para almacenar los productos del pedido.
+        const productos = [];
 
-    function valorPedido() {
-        let total = 0;
-        for (const producto of productos) {
-            total += producto.precio;
+        // Función interna para calcular el valor total del pedido.
+        function valorPedido() {
+            let total = 0;
+            for (const producto of productos) {
+                total += producto.precio;
+            }
+            return total;
         }
-        return total;
-        console.log("Valor del pedido:", pedido.valorPedido());
-     }
-    
-     function descuentoPedido() {
-        if (productos.length > 2 && valorPedido() >= 50000) {
-            return valorPedido() * 0.1; 
-        } else {
-            return 0; 
-        }
-        console.log("Descuento aplicado:", pedido.descuentoPedido());
-    }
 
-    return {
-        agregarProducto: function (plato, precio) {
-            productos.push({ plato, precio });
-        },
-        valorPedido,
-        descuentoPedido,
+        // Función interna para aplicar descuento al pedido según ciertas condiciones.
+        function descuentoPedido() {
+            if (productos.length > 2 && valorPedido() >= 50000) {
+                return valorPedido() * 0.1; // Aplicar descuento del 10% si se cumplen las condiciones.
+            } else {
+                return 0; // No hay descuento.
+            }
+        }
+
+        // Devuelve un objeto con funciones para agregar productos, obtener el valor del pedido y aplicar descuentos.
+        return {
+            // Función para agregar un producto al pedido.
+            agregarProducto: function (plato, precio) {
+                productos.push({ plato, precio });
+            },
+            // Función para obtener el valor total del pedido.
+            valorPedido,
+            // Función para obtener el descuento aplicado al pedido.
+            descuentoPedido,
+        }
     }
-  }
 };
 
+// Llamada a la función pedidoRestaurante del objeto restaurante1.
 restaurante1.pedidoRestaurante();
 
+// Definición de una función constructora llamada Restaurante que representa un restaurante.
 function Restaurante(plato, cantidad, precio, domicilio) {
+    // Atributos del restaurante como productos, tipo de plato, cantidad, precio base y costo de domicilio.
     this.productos = ['carne', '350 gr', 50000, 3000];
-  this.plato = plato;
-  this.cantidad = cantidad;
-  this.precio = precio;
-  this.domicilio = domicilio
- }
+    this.plato = plato;
+    this.cantidad = cantidad;
+    this.precio = precio;
+    this.domicilio = domicilio;
+}
 
-Restaurante.prototype.valorPedido = function() {
+// Definición de métodos en el prototipo de la función constructora Restaurante.
+
+// Método para calcular el valor total del pedido.
+Restaurante.prototype.valorPedido = function () {
     let total = 0;
     for (const producto of this.productos) {
         total += producto.precio;
     }
-    console.log("Valor del pedido:", total); 
+    console.log("Valor del pedido:", total);
     return total;
-}
+};
 
-Restaurante.prototype.descuentoPedido = function() {
+// Método para aplicar descuento al pedido según ciertas condiciones.
+Restaurante.prototype.descuentoPedido = function () {
     let total = 0;
 
     for (const producto of this.productos) {
@@ -72,62 +87,76 @@ Restaurante.prototype.descuentoPedido = function() {
     }
 
     if (this.productos.length > 2 && total >= 50000) {
-        return total * 0.1;
+        return total * 0.1; // Aplicar descuento del 10% si se cumplen las condiciones.
     } else {
-        return 0;
+        return 0; // No hay descuento.
     }
-}
+};
 
+// Método para agregar un producto al pedido.
 Restaurante.prototype.agregarProducto = function (plato, precio) {
-        this.productos.push({ plato, precio });
-    }
-    valorPedido = this.valorPedido; 
-    descuentoPedido = this.descuentoPedido; 
+    this.productos.push({ plato, precio });
+};
+
+// Asignación de métodos a variables para su posterior uso.
+valorPedido = this.valorPedido;
+descuentoPedido = this.descuentoPedido;
 
 
-function RestauranteDomicilio(plato, cantidad, precio, tiempoEntrega, valorDomicilio){
-      this.super = Restaurante;
-      this.super (plato, cantidad, precio, tiempoEntrega, valorDomicilio);
-      this.tiempoEntrega = tiempoEntrega;
-      this.valorDomicilio = valorDomicilio;
+// Definición de una función constructora llamada RestauranteDomicilio que hereda de Restaurante.
+function RestauranteDomicilio(plato, cantidad, precio, tiempoEntrega, valorDomicilio) {
+    // Llamada al constructor de la clase base Restaurante utilizando "super".
+    this.super = Restaurante;
+    this.super(plato, cantidad, precio, valorDomicilio); // Se pasa plato, cantidad, precio y valorDomicilio a la clase base.
+    this.tiempoEntrega = tiempoEntrega;
+    this.valorDomicilio = valorDomicilio;
 }
 
+// Herencia del prototipo de Restaurante para tener acceso a sus métodos.
 RestauranteDomicilio.prototype = new Restaurante();
 RestauranteDomicilio.prototype.constructor = Restaurante;
 
+// Método para mostrar información específica del restaurante de domicilio.
 RestauranteDomicilio.prototype.informacionRestaurante = function () {
-        console.log("Información del restaurante:");
-        console.log("Plato del día:", this.plato);
-        console.log("Cantidad:", this.cantidad);
-        console.log("Precio del plato:", this.precio);
-        console.log("Costo del domicilio:", this.domicilio);
-    }
+    console.log("Información del restaurante:");
+    console.log("Plato del día:", this.plato);
+    console.log("Cantidad:", this.cantidad);
+    console.log("Precio del plato:", this.precio);
+    console.log("Costo del domicilio:", this.domicilio);
+};
 
-RestauranteDomicilio.prototype.valorPedido = function(plato, cantidad, precio, domicilio) {
+// Sobrescritura del método valorPedido para manejar plato, cantidad, precio y domicilio.
+RestauranteDomicilio.prototype.valorPedido = function (plato, cantidad, precio, domicilio) {
     this.plato = plato;
     this.cantidad = cantidad;
     this.precio = precio;
     this.domicilio = domicilio;
-    }
+};
 
-RestauranteDomicilio.prototype.TiempoEntrega = function(){
-    console.log(`El tiempo de entrega aproximado es de: ${this.tiempoEntrega}`)
-}
+// Método para mostrar el tiempo de entrega.
+RestauranteDomicilio.prototype.TiempoEntrega = function () {
+    console.log(`El tiempo de entrega aproximado es de: ${this.tiempoEntrega}`);
+};
 
-RestauranteDomicilio.prototype.ValorDomicilio = function(){
-    console.log(`El valor del domicilio es de: ${this.valorDomicilio}`)
-}
+// Método para mostrar el valor del domicilio.
+RestauranteDomicilio.prototype.ValorDomicilio = function () {
+    console.log(`El valor del domicilio es de: ${this.valorDomicilio}`);
+};
 
- let restaurante = new RestauranteDomicilio('sancocho', '250 gr', 25000, '30 minutos', 3000);
+// Creación de una instancia de RestauranteDomicilio con valores iniciales.
+let restaurante = new RestauranteDomicilio('sancocho', '250 gr', 25000, '30 minutos', 3000);
 
- console.log({restaurante});
+// Mostrar la instancia del restaurante.
+console.log({ restaurante });
 
-restaurante.descuentoPedido();
-restaurante.agregarProducto();
+// Llamada a métodos heredados y propios del RestauranteDomicilio.
+restaurante.descuentoPedido(); 
+restaurante.agregarProducto(); 
 restaurante.informacionRestaurante();
 restaurante.valorPedido();
 restaurante.TiempoEntrega();
 restaurante.ValorDomicilio();
+
 
 </script>
 

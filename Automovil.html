@@ -9,77 +9,90 @@
     
 <script>
 const automóvil1 = {
-marca: 'toyota',
-linea: 'sedan',
-modelo: 2020,
-cilindraje: 2000,
-precio: 15999000,
+  // Definición de un objeto llamado automóvil1 con varias propiedades.
+  marca: 'Toyota',     // Propiedad: marca del automóvil.
+  linea: 'sedán',      // Propiedad: línea o tipo de automóvil.
+  modelo: 2020,         // Propiedad: año del modelo del automóvil.
+  cilindraje: 2000,     // Propiedad: cilindraje del motor del automóvil.
+  precio: 15999000,     // Propiedad: precio del automóvil.
 
-informacionvehiculo: function () {
-      console.log(`marca: ${this.marca}, linea: ${this.linea}, modelo: ${this.modelo}, ` +
-          `cilindraje: ${this.cilindraje} precio: ${this.precio} `);
- },
+  informacionvehiculo: function () {
+    // Método: informacionvehiculo. Imprime información detallada sobre el automóvil.
+    console.log(`marca: ${this.marca}, línea: ${this.linea}, modelo: ${this.modelo}, ` +
+        `cilindraje: ${this.cilindraje} precio: ${this.precio} `);
+  },
 
-revisionTecnicoMecanica: function(anioActual) {
+  revisionTecnicoMecanica: function(anioActual) {
+    // Método: revisionTecnicoMecanica. Verifica si es necesario hacer una revisión técnica mecánica.
     if (anioActual - this.modelo > 5) {
-    return `Es necesario realizar la revisión técnica mecánica para el automóvil ${this.modelo}`;
-  } else {
-    return `El automóvil ${this.modelo} no requiere revisión técnica mecánica en este momento.`;
+      return `Es necesario realizar la revisión técnica mecánica para el automóvil ${this.modelo}`;
+    } else {
+      return `El automóvil ${this.modelo} no requiere revisión técnica mecánica en este momento.`;
+    }
+  },
+
+  nivelGasolina: function() {
+    // Método: nivelGasolina. Genera un nivel de gasolina aleatorio entre 1 y 100.
+    return Math.floor(Math.random() * 100) + 1;
   }
- },
-
- nivelGasolina: function() {
-  return Math.floor(Math.random() * 100) + 1;
- }
-
 }
 
-automóvil1.informacionvehiculo();
-automóvil1.revisionTecnicoMecanica();
-automóvil1.nivelGasolina();
+// Llamadas a los métodos y propiedad del objeto automóvil1.
+automóvil1.informacionvehiculo();           // Imprime la información detallada del automóvil.
+automóvil1.revisionTecnicoMecanica();      // Verifica si es necesario hacer revisión técnica mecánica.
+automóvil1.nivelGasolina();                // Genera un nivel aleatorio de gasolina entre 1 y 100.
 
+// Definición de la función constructora Automovil.
 function Automovil(marca, linea, modelo, cilindraje, precio, numeroPasajeros, tipoCaja) {
-  this.marca = marca;
-  this.linea = linea;
-  this.modelo = modelo;
-  this.cilindraje = cilindraje;
-  this.precio = precio;  
-  this.numeroPasajeros = numeroPasajeros;
-  this.tipoCaja = tipoCaja;
+  this.marca = marca;                    // Propiedad: marca del automóvil.
+  this.linea = linea;                    // Propiedad: línea o tipo de automóvil.
+  this.modelo = modelo;                  // Propiedad: año del modelo del automóvil.
+  this.cilindraje = cilindraje;          // Propiedad: cilindraje del motor del automóvil.
+  this.precio = precio;                  // Propiedad: precio del automóvil.
+  this.numeroPasajeros = numeroPasajeros;// Propiedad: número de pasajeros del automóvil.
+  this.tipoCaja = tipoCaja;              // Propiedad: tipo de caja de cambios del automóvil.
 }
 
+// Método en el prototipo para calcular el número de cinturones de seguridad basado en el número de pasajeros.
 Automovil.prototype.numeroCinturonesSeguridad = function() {
     return (this.numeroPasajeros * 2);
 }
 
+// Método en el prototipo para obtener información específica del vehículo.
 Automovil.prototype.informacionVehiculo = function() {
-    return ` Número de Pasajeros: ${this.numeroPasajeros}, Tipo de Caja: ${this.tipoCaja}`;
+    return `Número de Pasajeros: ${this.numeroPasajeros}, Tipo de Caja: ${this.tipoCaja}`;
 }
 
+// Método en el prototipo para simular el nivel de gasolina aleatorio entre 1 y 100.
 Automovil.prototype.nivelGasolina = function() {
   return Math.floor(Math.random() * 100) + 1;
- }
-
-function AutomovilSedan(marca, linea, modelo, cilindraje, precio, numeroPasajeros, tipoCaja){
-      this.super = Automovil;
-      this.super (marca, linea, modelo, cilindraje, precio, numeroPasajeros, tipoCaja);
-      this.numeroPasajeros = numeroPasajeros;
-      this.tipoCaja = tipoCaja;
 }
 
+// Definición de la función constructora AutomovilSedan.
+function AutomovilSedan(marca, linea, modelo, cilindraje, precio, numeroPasajeros, tipoCaja) {
+  this.super = Automovil;  // Llamada al constructor de la clase padre (Automovil).
+  this.super(marca, linea, modelo, cilindraje, precio, numeroPasajeros, tipoCaja);
+  this.numeroPasajeros = numeroPasajeros;  // Propiedad específica de AutomovilSedan: número de pasajeros.
+  this.tipoCaja = tipoCaja;  // Propiedad específica de AutomovilSedan: tipo de caja.
+}
+
+// Herencia del prototipo de Automovil para AutomovilSedan.
 AutomovilSedan.prototype = new Automovil();
 AutomovilSedan.prototype.constructor = Automovil;
 
+// Método específico de AutomovilSedan para calcular el número de cinturones de seguridad.
 AutomovilSedan.prototype.numeroCinturonesSeguridad = function() {
     return this.numeroPasajeros * 2;
 }
 
+// Método específico de AutomovilSedan para obtener información del vehículo.
 AutomovilSedan.prototype.informacionvehiculo = function () {
-      console.log(`marca: ${this.marca}, linea: ${this.linea}, modelo: ${this.modelo}, ` +
-          ` cilindraje: ${this.cilindraje} precio: ${this.precio} ` +
-          ` numeropasajeros: ${this.numeroPasajeros} tipocaja: ${this.tipoCaja}`);
- }
+      console.log(`Marca: ${this.marca}, Línea: ${this.linea}, Modelo: ${this.modelo}, ` +
+          `Cilindraje: ${this.cilindraje}, Precio: ${this.precio}, ` +
+          `Número de Pasajeros: ${this.numeroPasajeros}, Tipo de Caja: ${this.tipoCaja}`);
+}
 
+// Método específico de AutomovilSedan para realizar la revisión técnica mecánica.
 AutomovilSedan.prototype.revisionTecnicoMecanica = function(anioActual) {
      if (anioActual - this.modelo > 5) {
     console.log(`Es necesario realizar la revisión técnica mecánica para el automóvil ${this.modelo}`);
@@ -88,20 +101,24 @@ AutomovilSedan.prototype.revisionTecnicoMecanica = function(anioActual) {
   }
 }
 
+// Método específico de AutomovilSedan para simular el nivel de gasolina.
 AutomovilSedan.prototype.nivelGasolina = function() {
   console.log(Math.floor(Math.random() * 100) + 1);
- }
+}
 
+// Creación de un objeto Sedan utilizando la función constructora AutomovilSedan.
+let Sedan = new AutomovilSedan('sedan2019', 'clase A', 'mercedez benz', 
+                            5500, 399000000, 5, 'automática');
 
- let Sedan = new AutomovilSedan('sedan2019', 'clase A', 'mercedez benz', 
-                            5500, 399000000, 5, 'automatica');
+// Mostrar el objeto Sedan en la consola.
+console.log({Sedan});
 
- console.log({Sedan});
+// Llamada a los métodos específicos de AutomovilSedan.
+Sedan.numeroCinturonesSeguridad();
+Sedan.informacionvehiculo();
+Sedan.revisionTecnicoMecanica(2022);
+Sedan.nivelGasolina();
 
- Sedan.numeroCinturonesSeguridad();
- Sedan.informacionVehiculo();
- Sedan.revisionTecnicoMecanica();
- Sedan.nivelGasolina();
 
 </script>
 

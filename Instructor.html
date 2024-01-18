@@ -8,93 +8,110 @@
 <body>
     
 <script>
+// Definición de un objeto instructor1 con propiedades nombre, linea y jornada.
 const instructor1 = {
-      nombre: 'jorge',
-      linea: 'software',
-      jornada: 'tarde',
+    nombre: 'jorge',
+    linea: 'software',
+    jornada: 'tarde',
 
+    // Método para mostrar la información del instructor.
+    informacioninstructor: function () {
+        console.log(`Nombre del instructor: ${this.nombre},         
+        Línea de instructor: ${this.linea}, 
+        Jornada del instructor: ${this.jornada}`);
+    },
 
-informacioninstructor: function () {
-      console.log(`nombre del instructor: ${this.nombre},         
-linea de instructor: ${this.linea}, 
-jornada del instructor: ${this.jornada}`);
- },
-
- programaFormacion: function () {
-  if (this.linea === 'Software') {
-      return 'Programa: Análisis y desarrollo de software';
-    } 
-   else if (this.linea === 'Hardware') {
-      return 'Programa: Administración de redes';
-    } 
-   else if (this.linea === 'ninguna') {
-      return 'No se tiene registro calificado para esta línea tecnológica';
+    // Método para determinar el programa de formación basado en la línea del instructor.
+    programaFormacion: function () {
+        if (this.linea === 'Software') {
+            return 'Programa: Análisis y desarrollo de software';
+        } else if (this.linea === 'Hardware') {
+            return 'Programa: Administración de redes';
+        } else if (this.linea === 'ninguna') {
+            return 'No se tiene registro calificado para esta línea tecnológica';
+        }
     }
-  }
+};
 
-}
+// Llamada al método informacioninstructor para mostrar la información del instructor.
+instructor1.informacioninstructor();
 
+// Llamada al método programaFormacion para determinar el programa de formación.
+const programa = instructor1.programaFormacion();
+console.log(programa);
+
+// Llamada a los métodos informacioninstructor y programaFormacion del objeto instructor1.
 instructor1.informacioninstructor();
 instructor1.programaFormacion();
 
+// Definición de una función constructora llamada Instructor.
 function Instructor(nombre, linea, jornada) {
   this.nombre = nombre;
   this.linea = linea;
   this.jornada = jornada;
 }
 
+// Prototipo para los métodos informacioninstructor, programaFormacion y tiempoVinculacion en la función Instructor.
+// Método para mostrar la información del instructor.
 Instructor.prototype.informacioninstructor = function () {
-      console.log(`nombre del instructor: ${this.nombre}, linea de instructor: ${this.linea} ` +
-                  `y jornada del instructor: ${this.jornada}`);
- },
+  console.log(`Nombre del instructor: ${this.nombre}, Línea de instructor: ${this.linea} ` +
+              `y Jornada del instructor: ${this.jornada}`);
+};
 
+// Método para determinar el programa de formación basado en la línea de instructor.
 Instructor.prototype.programaFormacion = function () {
   if (this.linea === 'Software') {
-      return 'Programa: Análisis y desarrollo de software';
-    } 
-   else if (this.linea === 'Hardware') {
-      return 'Programa: Administración de redes';
-    } 
-   else if (this.linea === 'ninguna') {
-      return 'No se tiene registro calificado para esta línea tecnológica';
-    }
-  },
+    return 'Programa: Análisis y desarrollo de software';
+  } else if (this.linea === 'Hardware') {
+    return 'Programa: Administración de redes';
+  } else if (this.linea === 'ninguna') {
+    return 'No se tiene registro calificado para esta línea tecnológica';
+  }
+};
 
+// Método para calcular la antigüedad en meses del instructor desde su fecha de vinculación.
 Instructor.prototype.tiempoVinculacion = function () {
   const fechaActual = new Date();
-    const fechaVinculacion = new Date(this.fechaVinculacion);
-    const tiempoTranscurrido = fechaActual - fechaVinculacion;
-    const mesesTranscurridos = Math.floor(tiempoTranscurrido / (1000 * 60 * 60 * 24 * 30.44)); 
-    return `Antigüedad en meses: ${mesesTranscurridos}`;
-  }
+  const fechaVinculacion = new Date(this.fechaVinculacion);
+  const tiempoTranscurrido = fechaActual - fechaVinculacion;
+  const mesesTranscurridos = Math.floor(tiempoTranscurrido / (1000 * 60 * 60 * 24 * 30.44));
+  return `Antigüedad en meses: ${mesesTranscurridos}`;
+};
 
-function InstructorPlanta(nombre, linea, jornada, fechaVinculacion){
-      this.super = Instructor;
-      this.super (nombre, linea, jornada, fechaVinculacion);
-      this.fechaVinculacion = fechaVinculacion;
+
+// Definición de una función constructora llamada InstructorPlanta que hereda de Instructor.
+function InstructorPlanta(nombre, linea, jornada, fechaVinculacion) {
+  // Llamada al constructor de la clase padre (Instructor) con la función super().
+  this.super = Instructor;
+  this.super(nombre, linea, jornada);
+  this.fechaVinculacion = fechaVinculacion;
 }
 
+// Hereda el prototipo de la función Instructor para obtener sus métodos.
 InstructorPlanta.prototype = new Instructor();
+// Corrige la referencia del constructor en el prototipo de InstructorPlanta.
 InstructorPlanta.prototype.constructor = Instructor;
 
+// Método modificado para mostrar la información del instructor de planta.
 InstructorPlanta.prototype.informacioninstructor = function () {
-      console.log(`nombre del instructor: ${this.nombre}, linea de instructor: ${this.linea},
-jornada del instructor: ${this.jornada}`);
- },
+  console.log(`Nombre del instructor: ${this.nombre}, Línea de instructor: ${this.linea} ` +
+              `y Jornada del instructor: ${this.jornada}`);
+};
 
+// Método heredado y modificado para calcular la antigüedad en meses del instructor de planta.
 InstructorPlanta.prototype.tiempoVinculacion = function () {
-    const fechaActual = new Date();
-    const fechaVinculacion = new Date(this.fechaVinculacion);
-    const tiempoTranscurrido = fechaActual - fechaVinculacion;
-    const mesesTranscurridos = Math.floor(tiempoTranscurrido / (1000 * 60 * 60 * 24 * 30.44)); 
-    return `Antigüedad en meses: ${mesesTranscurridos}`;
-  }
+  const fechaActual = new Date();
+  const fechaVinculacion = new Date(this.fechaVinculacion);
+  const tiempoTranscurrido = fechaActual - fechaVinculacion;
+  const mesesTranscurridos = Math.floor(tiempoTranscurrido / (1000 * 60 * 60 * 24 * 30.44));
+  return `Antigüedad en meses como instructor de planta: ${mesesTranscurridos}`;
+};
 
- let instructor = new InstructorPlanta('Andres henao', 'software', 'mañana');
+// Crear una instancia de InstructorPlanta.
+let instructor = new InstructorPlanta('Andres Henao', 'Software', 'Mañana');
+console.log({instructor});
 
- console.log({instructor});
-
-instructor.informacioninstructor();
+// Llamar a los métodos de la instancia de InstructorPlanta.
 instructor.informacioninstructor();
 instructor.tiempoVinculacion();
 
